@@ -1,29 +1,20 @@
 <template>
     <div id="cpuUsageChart">
-        <!--<vue-c3 :handler="handler"></vue-c3>-->
-        <textarea v-model="console" readonly style="width:1500px; height:300px; background:#000; color:#00ff00;"></textarea>
+        <textarea v-model="consoleMsg" readonly style="width:1500px; height:300px; background:#000; color:#00ff00;"></textarea>
         <button id="send" class="btn btn-light" @click="sendMessage">send</button>
     </div>
 </template>
 
 <script>
-//import VueC3 from 'vue-c3'
-//import Vue from 'vue'
-import 'c3/c3.min.css'
 
 export default {
     components: {
-      //VueC3
+        
     },
-    data () {
-      return {
-        //handler: new Vue()
-        console : "",
-        message : "",
-        logs: [],
-        status: "disconnected"
-      }
-    },
+    data: () => ({
+        consoleMsg : "",
+        status: "disconnected",
+    }),
     mounted() {
         this.socket = new WebSocket("ws://localhost:8080/ws");
         this.socket.onopen = () => {
@@ -36,6 +27,7 @@ export default {
             }else{
                 console.log('[onmessage] Received status : ' + this.status);
                 console.log('[onmessage] Received data : ' + data);
+                this.consoleMsg = data
             }
         }
         this.socket.onclose = () => {

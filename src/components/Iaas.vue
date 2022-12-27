@@ -1,15 +1,17 @@
 <template>
     <div id="cpuUsageChart">
+        <LineChart :options="options"> </LineChart>
         <textarea v-model="consoleMsg" readonly style="width:1500px; height:300px; background:#000; color:#00ff00;"></textarea>
         <button id="send" class="btn btn-light" @click="sendMessage">send</button>
     </div>
 </template>
 
 <script>
+import LineChart from './LineChart.vue'
 
 export default {
     components: {
-        
+        LineChart
     },
     data: () => ({
         consoleMsg : "",
